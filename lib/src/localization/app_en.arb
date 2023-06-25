@@ -1,0 +1,6 @@
+{
+  "appTitle": "pet_adoption_app",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
