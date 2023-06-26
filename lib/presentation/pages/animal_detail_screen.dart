@@ -4,13 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pet_adoption_app/core/const/const.dart';
-import 'package:pet_adoption_app/presentation/pages/temp_home2.dart';
+import 'package:pet_adoption_app/domain/entities/pet.dart';
 import 'package:pet_adoption_app/presentation/widgets/image_zoom_page.dart';
 
 class AnimalDetailScreen extends StatefulWidget {
-  final Animal animal;
+  final Pet pet;
 
-  const AnimalDetailScreen({super.key, required this.animal});
+  const AnimalDetailScreen({super.key, required this.pet});
 
   @override
   State<AnimalDetailScreen> createState() => _AnimalDetailScreenState();
@@ -59,11 +59,9 @@ class _AnimalDetailScreenState extends State<AnimalDetailScreen> {
                         MaterialPageRoute(
                           builder: (context) => ImageZoomPage(
                             imageProvider: AssetImage(
-                              widget.animal.imageUrl ??
-                                  'assets/images/sola.png',
+                              widget.pet.imageUrl ?? 'assets/images/sola.png',
                             ),
-                            bgColor:
-                                widget.animal.backgroundColor ?? Colors.white,
+                            bgColor: widget.pet.backgroundColor ?? Colors.white,
                           ),
                         ),
                       );
@@ -72,15 +70,14 @@ class _AnimalDetailScreenState extends State<AnimalDetailScreen> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 20),
                       width: double.infinity,
-                      color: widget.animal.backgroundColor,
+                      color: widget.pet.backgroundColor,
                       child: SizedBox(
                         height: screenHeight * 0.35,
                         child: Hero(
-                          tag: widget.animal.name ?? " - ",
+                          tag: widget.pet.name ?? " - ",
                           child: Image(
                             image: AssetImage(
-                              widget.animal.imageUrl ??
-                                  'assets/images/sola.png',
+                              widget.pet.imageUrl ?? 'assets/images/sola.png',
                             ),
                             fit: BoxFit.contain,
                           ),
@@ -89,7 +86,7 @@ class _AnimalDetailScreenState extends State<AnimalDetailScreen> {
                     ),
                   ),
                   ColoredBox(
-                    color: widget.animal.backgroundColor ?? Colors.white,
+                    color: widget.pet.backgroundColor ?? Colors.white,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 22.0,
@@ -104,26 +101,26 @@ class _AnimalDetailScreenState extends State<AnimalDetailScreen> {
                       ),
                       child: Column(
                         children: [
-                          AnimalProfileInfo(animal: widget.animal),
+                          AnimalProfileInfo(animal: widget.pet),
                           const SizedBox(height: 20),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               DetailItem(
                                 color: green,
-                                valueText: (widget.animal.isFemale ?? false)
+                                valueText: (widget.pet.isFemale ?? false)
                                     ? "Female"
                                     : "Male",
                                 keyText: 'Sex',
                               ),
                               DetailItem(
                                 color: orange,
-                                valueText: '${widget.animal.age} Years',
+                                valueText: '${widget.pet.age} Years',
                                 keyText: 'Age',
                               ),
                               DetailItem(
                                 color: blue,
-                                valueText: "${widget.animal.weight} Kg",
+                                valueText: "${widget.pet.weight} Kg",
                                 keyText: 'Weight',
                               )
                             ],
@@ -232,7 +229,7 @@ class _AnimalDetailScreenState extends State<AnimalDetailScreen> {
       dialogType: DialogType.SUCCES,
       animType: AnimType.SCALE,
       title: 'Adoption Done',
-      desc: 'You\'ve now adopted ${widget.animal.name}',
+      desc: 'You\'ve now adopted ${widget.pet.name}',
       btnOkOnPress: () {
         _confettiController.stop();
         // Navigator.of(context).pop();
@@ -376,7 +373,7 @@ class DetailItem extends StatelessWidget {
 class AnimalProfileInfo extends StatelessWidget {
   const AnimalProfileInfo({super.key, required this.animal});
 
-  final Animal animal;
+  final Pet animal;
 
   @override
   Widget build(BuildContext context) {
@@ -384,7 +381,7 @@ class AnimalProfileInfo extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          animal.name?.toString() ?? " - ",
+          animal.name.toString(),
           style: poppins.copyWith(
             fontSize: 24,
             color: black,

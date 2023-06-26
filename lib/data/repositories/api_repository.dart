@@ -23,4 +23,13 @@ class ApiRepository implements PetRepository {
     // Make API call to adopt a pet
     await apiClient.post("/adopt-pet", body: pet);
   }
+
+  @override
+  Future<Pet> getPetDetail(String id) async {
+    final data = await apiClient.get(
+      Uri(path: "get-pe", queryParameters: {"id": id}).toString(),
+    );
+
+    return Pet.fromJson(data);
+  }
 }

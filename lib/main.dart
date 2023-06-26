@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pet_adoption_app/di/locator.dart';
-import 'package:pet_adoption_app/presentation/bloc/pet_bloc.dart';
+import 'package:pet_adoption_app/presentation/bloc/home/pet_list_bloc.dart';
 import 'package:pet_adoption_app/presentation/pages/detail_page.dart';
-import 'package:pet_adoption_app/presentation/pages/temp_home2.dart';
+import 'package:pet_adoption_app/presentation/pages/home_screen.dart';
 import 'presentation/pages/history_page.dart';
 
 Future<void> main() async {
@@ -20,8 +19,8 @@ class PetAdoptionApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<HomeBloc>(
-          create: (ctx) => HomeBloc(getIt.get(), getIt.get()),
+        BlocProvider<PetListBloc>(
+          create: (ctx) => PetListBloc(),
         )
       ],
       child: MaterialApp(
@@ -32,7 +31,7 @@ class PetAdoptionApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (ctx) => const AdoptionScreen(),
+          '/': (ctx) => const HomeScreen(),
           '/details': (ctx) => const DetailsPage(),
           '/history': (ctx) => const HistoryPage(),
         },

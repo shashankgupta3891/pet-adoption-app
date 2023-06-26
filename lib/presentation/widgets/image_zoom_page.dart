@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:pet_adoption_app/core/const/const.dart';
 import 'package:photo_view/photo_view.dart';
 
 class ImageZoomPage extends StatelessWidget {
