@@ -113,8 +113,9 @@ class _DetailsPageState extends State<DetailsPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          ImageZoomPage(imageUrl: arg.pet.imageUrl),
+                      builder: (context) => ImageZoomPage(
+                        imageProvider: AssetImage(arg.pet.imageUrl),
+                      ),
                     ),
                   );
                 },
@@ -136,8 +137,8 @@ class _DetailsPageState extends State<DetailsPage> {
                   children: [
                     Text(
                       arg.pet.name,
-                      style:
-                          const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 10),
                     Text(

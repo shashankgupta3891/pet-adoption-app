@@ -13,14 +13,14 @@ class ApiRepository implements PetRepository {
     final petData = await apiClient.get("/get-pets");
 
     // Convert API response to List<Pet>
-    final pets = petData.data.map((petJson) => Pet.fromJson(petJson)).toList();
+    // final pets = petData.map((petJson) => Pet.fromJson(petJson)).toList();
 
-    return pets;
+    return [];
   }
 
   @override
   Future<void> adoptPet(Pet pet) async {
     // Make API call to adopt a pet
-    await apiClient.post("/adopt-pet", pet);
+    await apiClient.post("/adopt-pet", body: pet);
   }
 }

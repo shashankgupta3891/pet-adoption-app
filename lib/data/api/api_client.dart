@@ -10,19 +10,23 @@ class ApiClient {
     _dio.options.receiveTimeout = 3000; // 3 seconds
   }
 
-  Future<Response> get(String path) async {
+  Future<String> get(String path, {Map<String, String>? headers}) async {
     try {
       final response = await _dio.get(path);
-      return response;
+      return response.data.toString();
     } catch (error) {
       throw Exception('Failed to perform GET request: $error');
     }
   }
 
-  Future<Response> post(String path, dynamic data) async {
+  Future<String> post(
+    String url, {
+    Map<String, String> headers = const {},
+    Object? body,
+  }) async {
     try {
-      final response = await _dio.post(path, data: data);
-      return response;
+      final response = await _dio.post(url, data: body);
+      return response.data.toString();
     } catch (error) {
       throw Exception('Failed to perform POST request: $error');
     }

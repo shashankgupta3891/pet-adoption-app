@@ -2,16 +2,41 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_adoption_app/presentation/pages/animal_detail_screen.dart';
-import 'package:pet_adoption_app/presentation/pages/temp_home2.dart';
+import 'package:pet_adoption_app/presentation/pages/history_page.dart';
 
-class HistoryPage extends StatefulWidget {
-  const HistoryPage({super.key});
+class Animal {
+  String? name;
+  String? scientificName;
+  double? age;
+  String? distanceToUser;
+  bool? isFemale;
+  String? imageUrl;
+  Color? backgroundColor;
 
-  @override
-  State<HistoryPage> createState() => _HistoryPageState();
+  int? weight;
+
+  Animal({
+    this.name,
+    this.scientificName,
+    this.age,
+    this.distanceToUser,
+    this.isFemale,
+    this.imageUrl,
+    this.backgroundColor,
+    this.weight,
+  });
 }
 
-class _HistoryPageState extends State<HistoryPage> {
+class AdoptionScreen extends StatefulWidget {
+  const AdoptionScreen({super.key});
+
+  @override
+  _AdoptionScreenState createState() => _AdoptionScreenState();
+}
+
+class _AdoptionScreenState extends State<AdoptionScreen> {
+  int selectedAnimalIconIndex = 0;
+
   final List<Animal> animals = [
     Animal(
       name: 'Sola',
@@ -463,10 +488,79 @@ class _HistoryPageState extends State<HistoryPage> {
     FontAwesomeIcons.fish,
   ];
 
+  Widget buildAnimalIcon(int index) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 30.0),
+      child: Column(
+        children: <Widget>[
+          InkWell(
+            onTap: () {
+              setState(() {
+                selectedAnimalIconIndex = index;
+              });
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: selectedAnimalIconIndex == index
+                    ? Theme.of(context).primaryColor
+                    : Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    offset: const Offset(0, 3),
+                    color: selectedAnimalIconIndex == index
+                        ? Theme.of(context).primaryColor
+                        : Colors.black.withOpacity(0.1),
+                    spreadRadius: 0,
+                    blurRadius: 10,
+                  )
+                ],
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Icon(
+                  animalIcons[index],
+                  size: 25.0,
+                  color: selectedAnimalIconIndex == index
+                      ? Colors.white
+                      : Theme.of(context).primaryColor,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 12.0,
+          ),
+          Text(
+            animalTypes[index],
+            style: TextStyle(
+              color: Theme.of(context).primaryColor,
+              fontSize: 16.0,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => const HistoryPage(),
+            ),
+          );
+        },
+        label: const Text("History"),
+      ),
       body: Padding(
         padding: const EdgeInsets.only(top: 60.0),
         child: Column(
@@ -481,45 +575,44 @@ class _HistoryPageState extends State<HistoryPage> {
                     children: <Widget>[
                       InkWell(
                         child: const Icon(
-                          FontAwesomeIcons.arrowLeft,
+                          FontAwesomeIcons.bars,
                         ),
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
+                        onTap: () {},
                       ),
                       Column(
                         children: <Widget>[
                           Text(
-                            'History',
+                            'Location',
                             style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 22.0,
-                                color: Theme.of(context).primaryColor
-                                // .withOpacity(0.4),
-                                ),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18.0,
+                              color: Theme.of(context)
+                                  .primaryColor
+                                  .withOpacity(0.4),
+                            ),
                           ),
-                          // Row(
-                          //   children: <Widget>[
-                          //     Icon(
-                          //       FontAwesomeIcons.mapMarkerAlt,
-                          //       color: Theme.of(context).primaryColor,
-                          //     ),
-                          //     const Text(
-                          //       'Shahdara, ',
-                          //       style: TextStyle(
-                          //         fontWeight: FontWeight.w600,
-                          //         fontSize: 22.0,
-                          //       ),
-                          //     ),
-                          //     const Text(
-                          //       'Delhi',
-                          //       style: TextStyle(
-                          //         fontWeight: FontWeight.w300,
-                          //         fontSize: 22.0,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
+                          Row(
+                            children: <Widget>[
+                              Icon(
+                                FontAwesomeIcons.mapMarkerAlt,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              const Text(
+                                'Shahdara, ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 22.0,
+                                ),
+                              ),
+                              const Text(
+                                'Delhi',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 22.0,
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                       const CircleAvatar(
@@ -549,6 +642,21 @@ class _HistoryPageState extends State<HistoryPage> {
                   child: Column(
                     children: <Widget>[
                       const SizedBox(height: 20),
+                      SizedBox(
+                        height: 120.0,
+                        child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          padding: const EdgeInsets.only(
+                            left: 24.0,
+                            top: 8.0,
+                          ),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: animalTypes.length,
+                          itemBuilder: (context, index) {
+                            return buildAnimalIcon(index);
+                          },
+                        ),
+                      ),
                       Expanded(
                         child: ListView.builder(
                           physics: const BouncingScrollPhysics(),

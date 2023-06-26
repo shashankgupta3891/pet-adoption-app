@@ -8,17 +8,17 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  late PetBloc _petBloc;
+  late HomeBloc _petBloc;
 
   @override
   void initState() {
     super.initState();
-    _petBloc = context.read<PetBloc>();
-    _petBloc.add(GetPetsEvent());
+    _petBloc = context.read<HomeBloc>();
+    // _petBloc.add(GetPetsEvent());
   }
 
   @override
@@ -27,7 +27,8 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Pet Adoption'),
       ),
-      body: BlocBuilder<PetBloc, PetState>(
+      body: BlocBuilder<HomeBloc, PetState>(
+        bloc: context.read<HomeBloc>()..onInitialLoad(),
         builder: (context, state) {
           if (state is LoadingPetState) {
             return const Center(

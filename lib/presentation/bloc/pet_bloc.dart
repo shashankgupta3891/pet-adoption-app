@@ -29,11 +29,15 @@ class ErrorPetState extends PetState {
   ErrorPetState(this.error);
 }
 
-class PetBloc extends Bloc<PetEvent, PetState> {
+class HomeBloc extends Bloc<PetEvent, PetState> {
   final GetPetsUseCase getPetsUseCase;
   final AdoptPetUseCase adoptPetUseCase;
 
-  PetBloc(this.getPetsUseCase, this.adoptPetUseCase)
+  void onInitialLoad() {
+    add(GetPetsEvent());
+  }
+
+  HomeBloc(this.getPetsUseCase, this.adoptPetUseCase)
       : super(LoadingPetState()) {
     on<GetPetsEvent>(_mapGetPetsEventToState);
     on<AdoptPetEvent>(_mapAdoptPetEventToState);
