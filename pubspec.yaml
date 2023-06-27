@@ -26,12 +26,13 @@ dependencies:
   flutter_dialogs: ^3.0.0
   confetti: ^0.7.0
   photo_view: ^0.14.0
-  flutter_svg: ^2.0.7
+  flutter_svg: any
   google_fonts: ^5.1.0
   oauth2: ^2.0.2
   animations: ^2.0.7
   font_awesome_flutter: ^10.4.0
   awesome_dialog: ^2.2.1
+  open_peeps: any
 
 dev_dependencies:
   flutter_test:

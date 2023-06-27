@@ -21,6 +21,9 @@ class PetSearchView extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else if (state is LoadedSearchPetState) {
+          if (state.pets.isEmpty)
+            return Center(child: Text("No Data AVAILABLE"));
+
           return ListView.builder(
             itemCount: state.pets.length,
             itemBuilder: (context, index) {

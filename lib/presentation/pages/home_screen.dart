@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:open_peeps/open_peeps.dart';
 import 'package:pet_adoption_app/presentation/bloc/home/pet_list_bloc.dart';
 import 'package:pet_adoption_app/presentation/bloc/home/search_pet_bloc.dart';
 import 'package:pet_adoption_app/presentation/pages/history_page.dart';
@@ -52,6 +53,32 @@ class _HomeScreenState extends State<HomeScreen> {
         focusNode.unfocus();
       },
       child: Scaffold(
+        drawer: Drawer(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor.withOpacity(0.3),
+                ),
+                child: CircleAvatar(
+                    child: PeepAvatar.fromPeep(
+                  size: 150,
+                  peep: PeepGenerator().generate(),
+                )),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemBuilder: (ctx, i) {
+                    return const ListTile(
+                      title: Text("Drawer Tile"),
+                    );
+                  },
+                ),
+              )
+            ],
+          ),
+        ),
         floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
@@ -95,10 +122,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Theme.of(context).primaryColor.withOpacity(0.06),
                     ),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         const SizedBox(height: 20),
                         if (isSearchingEnabled) ...[
-                          PetSearchView(query: searchText)
+                          Expanded(child: PetSearchView(query: searchText))
                         ] else ...[
                           SizedBox(
                             height: 120.0,
@@ -127,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               },
                             ),
                           ),
-                          PetListView(type: type)
+                          Expanded(child: PetListView(type: type))
                         ]
                       ],
                     ),

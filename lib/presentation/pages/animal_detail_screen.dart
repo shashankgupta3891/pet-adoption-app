@@ -2,9 +2,12 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pet_adoption_app/core/const/const.dart';
 import 'package:pet_adoption_app/domain/entities/pet.dart';
+import 'package:pet_adoption_app/presentation/bloc/pet_detail_bloc.dart';
+import 'package:pet_adoption_app/presentation/widgets/detail/animal_info_section.dart';
 import 'package:pet_adoption_app/presentation/widgets/image_zoom_page.dart';
 
 class AnimalDetailScreen extends StatefulWidget {
@@ -20,6 +23,18 @@ class _AnimalDetailScreenState extends State<AnimalDetailScreen> {
   final ConfettiController _confettiController =
       ConfettiController(duration: const Duration(seconds: 3));
 
+  late Pet pet;
+  late PetDetailsBloc bloc;
+
+  @override
+  void initState() {
+    super.initState();
+
+    pet = widget.pet;
+
+    bloc = PetDetailsBloc(pet);
+  }
+
   @override
   void dispose() {
     _confettiController.dispose();
@@ -30,195 +45,95 @@ class _AnimalDetailScreenState extends State<AnimalDetailScreen> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: const Icon(
-              CupertinoIcons.share,
-              // color: Theme.of(context).primaryColor,
+    return BlocListener<PetDetailsBloc, PetDetailState>(
+      bloc: bloc,
+      listener: (context, state) {
+        if (state is SuccessAdoptPetDetailState) {
+          _showAdoptionPopup();
+        }
+      },
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          actions: [
+            IconButton(
+              icon: const Icon(
+                CupertinoIcons.share,
+                // color: Theme.of(context).primaryColor,
+              ),
+              onPressed: () {},
             ),
-            onPressed: () {},
-          ),
-        ],
-      ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Container(
-              color: Colors.white,
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ImageZoomPage(
-                            imageProvider: AssetImage(
-                              widget.pet.imageUrl ?? 'assets/images/sola.png',
+          ],
+        ),
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Container(
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ImageZoomPage(
+                              imageProvider: AssetImage(
+                                pet.imageUrl ?? 'assets/images/sola.png',
+                              ),
+                              bgColor: pet.backgroundColor ?? Colors.white,
                             ),
-                            bgColor: widget.pet.backgroundColor ?? Colors.white,
                           ),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 20),
-                      width: double.infinity,
-                      color: widget.pet.backgroundColor,
-                      child: SizedBox(
-                        height: screenHeight * 0.35,
-                        child: Hero(
-                          tag: widget.pet.name ?? " - ",
-                          child: Image(
-                            image: AssetImage(
-                              widget.pet.imageUrl ?? 'assets/images/sola.png',
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 20),
+                        width: double.infinity,
+                        color: pet.backgroundColor,
+                        child: SizedBox(
+                          height: screenHeight * 0.35,
+                          child: Hero(
+                            tag: pet.name ?? " - ",
+                            child: Image(
+                              image: AssetImage(
+                                pet.imageUrl ?? 'assets/images/sola.png',
+                              ),
+                              fit: BoxFit.contain,
                             ),
-                            fit: BoxFit.contain,
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  ColoredBox(
-                    color: widget.pet.backgroundColor ?? Colors.white,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 22.0,
-                        vertical: 30.0,
-                      ),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
-                      ),
-                      child: Column(
-                        children: [
-                          AnimalProfileInfo(animal: widget.pet),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              DetailItem(
-                                color: green,
-                                valueText: (widget.pet.isFemale ?? false)
-                                    ? "Female"
-                                    : "Male",
-                                keyText: 'Sex',
-                              ),
-                              DetailItem(
-                                color: orange,
-                                valueText: '${widget.pet.age} Years',
-                                keyText: 'Age',
-                              ),
-                              DetailItem(
-                                color: blue,
-                                valueText: "${widget.pet.weight} Kg",
-                                keyText: 'Weight',
-                              )
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              const CircleAvatar(
-                                radius: 22.0,
-                                backgroundImage:
-                                    AssetImage('assets/images/sola.png'),
-                              ),
-                              const SizedBox(
-                                width: 10.0,
-                              ),
-                              Flexible(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: <Widget>[
-                                        Text(
-                                          'Maya Berkovskaya',
-                                          style: TextStyle(
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const Text(
-                                          'May 25, 2019',
-                                          style: TextStyle(
-                                            color: Colors.grey,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 8.0,
-                                    ),
-                                    const Text(
-                                      'Owner',
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20.0,
-                          ),
-                          const Text(
-                            'My job requires moving to another country. I don\'t have the opportunity to take the cat with me. I am looking for good people who will shelter Sola.  I don\'t have the opportunity to take the cat with me. I am looking for good people who will shelter Sola.  I don\'t have the opportunity to take the cat with me. I am looking for good people who will shelter Sola.  I don\'t have the opportunity to take the cat with me. I am looking for good people who will shelter Sola.  I don\'t have the opportunity to take the cat with me. I am looking for good people who will shelter Sola.  I don\'t have the opportunity to take the cat with me. I am looking for good people who will shelter Sola.  I don\'t have the opportunity to take the cat with me. I am looking for good people who will shelter Sola.  I don\'t have the opportunity to take the cat with me. I am looking for good people who will shelter Sola.',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+                    AnimalInfoSection(pet: pet),
+                  ],
+                ),
               ),
             ),
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: ConfettiWidget(
-              confettiController: _confettiController,
-              blastDirectionality: BlastDirectionality
-                  .explosive, // don't specify a direction, blast randomly
-              shouldLoop:
-                  true, // start again as soon as the animation is finished
-              colors: const [
-                Colors.green,
-                Colors.blue,
-                Colors.pink,
-                Colors.orange,
-                Colors.purple
-              ], // manually specify the colors to be used
-              // createParticlePath: drawStar, // define a custom shape/path.
+            Align(
+              alignment: Alignment.topCenter,
+              child: ConfettiWidget(
+                confettiController: _confettiController,
+                blastDirectionality: BlastDirectionality
+                    .explosive, // don't specify a direction, blast randomly
+                shouldLoop:
+                    true, // start again as soon as the animation is finished
+                colors: const [
+                  Colors.green,
+                  Colors.blue,
+                  Colors.pink,
+                  Colors.orange,
+                  Colors.purple
+                ], // manually specify the colors to be used
+                // createParticlePath: drawStar, // define a custom shape/path.
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
+        bottomNavigationBar: DetailScreenBottom(petDetailsBloc: bloc),
       ),
-      bottomNavigationBar: DetailScreenBottom(onClick: _showAdoptionPopup),
     );
   }
 
@@ -229,77 +144,67 @@ class _AnimalDetailScreenState extends State<AnimalDetailScreen> {
       dialogType: DialogType.SUCCES,
       animType: AnimType.SCALE,
       title: 'Adoption Done',
-      desc: 'You\'ve now adopted ${widget.pet.name}',
+      desc: 'You\'ve now adopted ${pet.name}',
       btnOkOnPress: () {
         _confettiController.stop();
-        // Navigator.of(context).pop();
       },
     ).show();
-    // showDialog(
-    //   context: context,
-    //   barrierDismissible: false,
-    //   builder: (BuildContext context) {
-    //     return WillPopScope(
-    //       onWillPop: () => Future.value(false),
-    //       child: AlertDialog(
-    //         title: const Text('Adoption Confirmation'),
-    //         content: Text('You\'ve now adopted ${widget.animal.name}'),
-    //         actions: [
-    //           TextButton(
-    //             child: const Text('OK'),
-    //             onPressed: () {
-    //               _confettiController.stop();
-    //               Navigator.of(context).pop();
-    //             },
-    //           ),
-    //         ],
-    //       ),
-    //     );
-    //   },
-    // );
 
     _confettiController.play();
   }
 }
 
 class DetailScreenBottom extends StatelessWidget {
+  final PetDetailsBloc petDetailsBloc;
+
   const DetailScreenBottom({
     super.key,
-    required this.onClick,
+    required this.petDetailsBloc,
   });
-  final VoidCallback onClick;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: const [
-          BoxShadow(
-            offset: Offset(0, 3),
-            color: blue,
-            spreadRadius: 0,
-            blurRadius: 10,
-          )
-        ],
-        color: blue,
-      ),
-      child: InkWell(
-        onTap: onClick,
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Adopt Me',
-                style: poppins.copyWith(fontSize: 14, color: white),
-              ),
+    return BlocBuilder<PetDetailsBloc, PetDetailState>(
+      bloc: petDetailsBloc,
+      builder: (context, state) {
+        final isDisabled = petDetailsBloc.isDisabled();
+
+        final showLoading = state is LoadingPetDetailState;
+
+        return Container(
+          margin: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                offset: const Offset(0, 3),
+                color: isDisabled ? Colors.grey : blue,
+                spreadRadius: 0,
+                blurRadius: 10,
+              )
             ],
+            color: isDisabled ? Colors.grey.shade700 : blue,
           ),
-        ),
-      ),
+          child: InkWell(
+            onTap: isDisabled ? null : petDetailsBloc.onAdopt,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (showLoading)
+                    const CupertinoActivityIndicator(color: Colors.white)
+                  else
+                    Text(
+                      petDetailsBloc.isAdopted() ? "Adoptted" : 'Adopt Me',
+                      style: poppins.copyWith(fontSize: 14, color: white),
+                    ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

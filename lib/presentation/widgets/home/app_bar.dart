@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:open_peeps/open_peeps.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({
@@ -12,11 +13,13 @@ class HomeAppBar extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        InkWell(
-          child: const Icon(
+        IconButton(
+          icon: const Icon(
             FontAwesomeIcons.bars,
           ),
-          onTap: () {},
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
         ),
         Column(
           children: <Widget>[
@@ -52,9 +55,18 @@ class HomeAppBar extends StatelessWidget {
             ),
           ],
         ),
-        const CircleAvatar(
+        // PeepAvatar.fromPeep(
+        //   // size: 20,
+        //   peep: PeepGenerator().generate(),
+        // ),
+
+        CircleAvatar(
           radius: 20.0,
-          backgroundImage: AssetImage('assets/images/sola.png'),
+          // backgroundImage: AssetImage('assets/images/sola.png'),
+          child: PeepAvatar.fromPeep(
+            size: 50,
+            peep: PeepGenerator().generate(),
+          ),
         ),
       ],
     );

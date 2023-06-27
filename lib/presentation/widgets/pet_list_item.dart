@@ -16,9 +16,11 @@ class PetListItem extends StatelessWidget {
     final deviceWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return AnimalDetailScreen(pet: animal);
-        }));
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
+            return AnimalDetailScreen(pet: animal);
+          },
+        ));
       },
       child: Padding(
         padding: const EdgeInsets.only(

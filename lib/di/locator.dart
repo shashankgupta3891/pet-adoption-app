@@ -6,10 +6,12 @@ import 'package:pet_adoption_app/data/use_cases/adopt_pet_use_case_impl.dart';
 import 'package:pet_adoption_app/data/use_cases/get_pet_detail_use_case_impl.dart';
 import 'package:pet_adoption_app/data/use_cases/get_pets_use_case_impl.dart';
 import 'package:pet_adoption_app/data/use_cases/mock/mock_adopt_pet_use_case.dart';
+import 'package:pet_adoption_app/data/use_cases/mock/mock_adopted_pet_list_use_case.dart';
 import 'package:pet_adoption_app/data/use_cases/mock/mock_get_pets_use_case.dart';
 import 'package:pet_adoption_app/domain/repositories/local_storage_repository.dart';
 import 'package:pet_adoption_app/domain/repositories/pet_repository.dart';
 import 'package:pet_adoption_app/domain/use_cases/adopt_pet_use_case.dart';
+import 'package:pet_adoption_app/domain/use_cases/get_adopted_pet_list_use_case.dart';
 import 'package:pet_adoption_app/domain/use_cases/get_pet_detail_use_case.dart';
 import 'package:pet_adoption_app/domain/use_cases/get_pets_use_case.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -54,4 +56,7 @@ void setupMockUsecase() {
   getIt.registerFactory<AdoptPetUseCase>(() => MockAdoptPetsUseCase());
   getIt.registerFactory<GetPetDetailUseCase>(
       () => GetPetDetailUseCaseImpl(getIt.get()));
+
+  getIt.registerFactory<GetAdopterPetListUseCase>(
+      () => MockGetAdopterPetListUseCase(getIt.get()));
 }
