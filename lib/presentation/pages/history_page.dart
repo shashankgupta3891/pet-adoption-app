@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
+import 'package:pet_adoption_app/core/const/media_const.dart';
 import 'package:pet_adoption_app/presentation/bloc/history_list_bloc.dart';
 import 'package:pet_adoption_app/presentation/bloc/home/pet_list_bloc.dart';
 import 'package:pet_adoption_app/presentation/widgets/pet_list_item.dart';
@@ -77,54 +79,51 @@ class _HistoryPageState extends State<HistoryPage> {
                       ],
                     ),
                     const SizedBox(height: 20),
-                    CupertinoSearchTextField(
-                      focusNode: focusNode,
-                      controller: TextEditingController(),
-                      onChanged: (value) {},
-                      onSubmitted: (value) {},
-                      // autocorrect: true,
-                    ),
                   ],
                 ),
               ),
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 24.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30.0),
-                      color: Theme.of(context).primaryColor.withOpacity(0.06),
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        const SizedBox(height: 20),
-                        Expanded(
-                          child: BlocBuilder<HistoryPetBloc, HistoryPetState>(
-                            bloc: HistoryPetBloc()..onInitialLoad(),
-                            builder: (context, state) {
-                              if (state is LoadingHistoryPetState) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              } else if (state is LoadedHistoryPetState) {
-                                return ListView.builder(
-                                  itemCount: state.pets.length,
-                                  itemBuilder: (context, index) {
-                                    final pet = state.pets[index];
-                                    return PetListItem(animal: pet);
-                                  },
-                                );
-                              } else if (state is ErrorHistoryPetState) {
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30.0),
+                    color: Theme.of(context).primaryColor.withOpacity(0.06),
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      // const SizedBox(height: 20),
+                      Expanded(
+                        child: BlocBuilder<HistoryPetBloc, HistoryPetState>(
+                          bloc: HistoryPetBloc()..onInitialLoad(),
+                          builder: (context, state) {
+                            if (state is LoadingHistoryPetState) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else if (state is LoadedHistoryPetState) {
+                              if (state.pets.isEmpty) {
                                 return Center(
-                                  child: Text('Error: ${state.error}'),
+                                  child: Lottie.asset(
+                                      AnimationConst.noDataAnimation),
                                 );
                               }
-                              return Container();
-                            },
-                          ),
-                        )
-                      ],
-                    ),
+
+                              return ListView.builder(
+                                itemCount: state.pets.length,
+                                itemBuilder: (context, index) {
+                                  final pet = state.pets[index];
+                                  return PetListItem(animal: pet);
+                                },
+                              );
+                            } else if (state is ErrorHistoryPetState) {
+                              return Center(
+                                child: Text('Error: ${state.error}'),
+                              );
+                            }
+                            return Container();
+                          },
+                        ),
+                      )
+                    ],
                   ),
                 ),
               )

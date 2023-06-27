@@ -3,6 +3,8 @@ import 'dart:convert';
 
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:pet_adoption_app/core/const/media_const.dart';
 import 'package:photo_view/photo_view.dart';
 
 import 'package:pet_adoption_app/domain/entities/pet.dart';
@@ -166,6 +168,8 @@ class _DetailsPageState extends State<DetailsPage> {
       );
     }
 
-    return const Text("No Data Available");
+    return Center(
+      child: Lottie.asset(AnimationConst.noDataAnimation),
+    );
   }
 }

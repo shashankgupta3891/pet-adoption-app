@@ -22,7 +22,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   FocusNode focusNode = FocusNode();
   String searchText = "";
-
+  TextEditingController searchController = TextEditingController();
   int? selectedAnimalIconIndex;
 
   List<String> animalTypes = [
@@ -52,117 +52,132 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: () {
         focusNode.unfocus();
       },
-      child: Scaffold(
-        drawer: Drawer(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor.withOpacity(0.3),
+      child: WillPopScope(
+        onWillPop: () async {
+          if (isSearchingEnabled) {
+            searchController.text = "";
+            setState(() {
+              searchText = "";
+            });
+            focusNode.unfocus();
+            return false;
+          }
+
+          return true;
+        },
+        child: Scaffold(
+          drawer: Drawer(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor.withOpacity(0.3),
+                  ),
+                  child: CircleAvatar(
+                      child: PeepAvatar.fromPeep(
+                    size: 150,
+                    peep: PeepGenerator().generate(),
+                  )),
                 ),
-                child: CircleAvatar(
-                    child: PeepAvatar.fromPeep(
-                  size: 150,
-                  peep: PeepGenerator().generate(),
-                )),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemBuilder: (ctx, i) {
-                    return const ListTile(
-                      title: Text("Drawer Tile"),
-                    );
-                  },
-                ),
-              )
-            ],
+                Expanded(
+                  child: ListView.builder(
+                    itemBuilder: (ctx, i) {
+                      return const ListTile(
+                        title: Text("Drawer Tile"),
+                      );
+                    },
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-        floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => const HistoryPage(),
-              ),
-            );
-          },
-          label: const Text("History"),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.only(top: 60.0),
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 22.0),
-                child: Column(
-                  children: [
-                    const HomeAppBar(),
-                    const SizedBox(height: 20),
-                    CupertinoSearchTextField(
-                      onChanged: (value) {
-                        setState(() {
-                          searchText = value;
-                        });
-                      },
-                      onSubmitted: (value) {},
-                      // autocorrect: true,
-                    ),
-                  ],
+          floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const HistoryPage(),
                 ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 24.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30.0),
-                      color: Theme.of(context).primaryColor.withOpacity(0.06),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        const SizedBox(height: 20),
-                        if (isSearchingEnabled) ...[
-                          Expanded(child: PetSearchView(query: searchText))
-                        ] else ...[
-                          SizedBox(
-                            height: 120.0,
-                            child: ListView.builder(
-                              physics: const BouncingScrollPhysics(),
-                              padding: const EdgeInsets.only(
-                                left: 24.0,
-                                top: 8.0,
-                              ),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: animalTypes.length,
-                              itemBuilder: (context, index) {
-                                final isSelected =
-                                    index == selectedAnimalIconIndex;
-                                return PetTypeItem(
-                                  isSelected: isSelected,
-                                  onClick: () {
-                                    setState(() {
-                                      selectedAnimalIconIndex =
-                                          isSelected ? null : index;
-                                    });
-                                  },
-                                  icon: animalIcons[index],
-                                  typeName: animalTypes[index],
-                                );
-                              },
-                            ),
-                          ),
-                          Expanded(child: PetListView(type: type))
-                        ]
-                      ],
-                    ),
+              );
+            },
+            label: const Text("History"),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.only(top: 60.0),
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 22.0),
+                  child: Column(
+                    children: [
+                      const HomeAppBar(),
+                      const SizedBox(height: 20),
+                      CupertinoSearchTextField(
+                        controller: searchController,
+                        onChanged: (value) {
+                          setState(() {
+                            searchText = value;
+                          });
+                        },
+                        onSubmitted: (value) {},
+                        // autocorrect: true,
+                      ),
+                    ],
                   ),
                 ),
-              )
-            ],
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 24.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30.0),
+                        color: Theme.of(context).primaryColor.withOpacity(0.06),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          const SizedBox(height: 20),
+                          if (isSearchingEnabled) ...[
+                            Expanded(child: PetSearchView(query: searchText))
+                          ] else ...[
+                            SizedBox(
+                              height: 120.0,
+                              child: ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                padding: const EdgeInsets.only(
+                                  left: 24.0,
+                                  top: 8.0,
+                                ),
+                                scrollDirection: Axis.horizontal,
+                                itemCount: animalTypes.length,
+                                itemBuilder: (context, index) {
+                                  final isSelected =
+                                      index == selectedAnimalIconIndex;
+                                  return PetTypeItem(
+                                    isSelected: isSelected,
+                                    onClick: () {
+                                      setState(() {
+                                        selectedAnimalIconIndex =
+                                            isSelected ? null : index;
+                                      });
+                                    },
+                                    icon: animalIcons[index],
+                                    typeName: animalTypes[index],
+                                  );
+                                },
+                              ),
+                            ),
+                            Expanded(child: PetListView(type: type))
+                          ]
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

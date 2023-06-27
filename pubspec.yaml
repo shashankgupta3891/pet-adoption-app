@@ -33,6 +33,7 @@ dependencies:
   font_awesome_flutter: ^10.4.0
   awesome_dialog: ^2.2.1
   open_peeps: any
+  lottie: ^2.4.0
 
 dev_dependencies:
   flutter_test:
@@ -49,3 +50,4 @@ flutter:
   assets:
     # Add assets from the images directory to the application.
     - assets/images/
+    - assets/animation/

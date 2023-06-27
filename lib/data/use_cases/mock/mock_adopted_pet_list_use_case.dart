@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:pet_adoption_app/core/helper/adopted_data_manager.dart';
+import 'package:pet_adoption_app/utils/adopted_data_manager.dart';
 import 'package:pet_adoption_app/di/locator.dart';
 import 'package:pet_adoption_app/domain/entities/pet.dart';
 import 'package:pet_adoption_app/domain/repositories/local_storage_repository.dart';

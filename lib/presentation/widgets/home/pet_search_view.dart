@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
+import 'package:pet_adoption_app/core/const/media_const.dart';
 import 'package:pet_adoption_app/presentation/bloc/home/search_pet_bloc.dart';
 import 'package:pet_adoption_app/presentation/widgets/pet_list_item.dart';
 
@@ -21,8 +23,11 @@ class PetSearchView extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else if (state is LoadedSearchPetState) {
-          if (state.pets.isEmpty)
-            return Center(child: Text("No Data AVAILABLE"));
+          if (state.pets.isEmpty) {
+            return Center(
+              child: Lottie.asset(AnimationConst.noDataAnimation),
+            );
+          }
 
           return ListView.builder(
             itemCount: state.pets.length,
