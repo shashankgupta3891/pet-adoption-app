@@ -2,7 +2,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+
 import 'package:pet_adoption_app/core/const/media_const.dart';
+import 'package:pet_adoption_app/domain/entities/pet_type.dart';
+import 'package:pet_adoption_app/presentation/pages/home_screen.dart';
 
 class Pet {
   String id;
@@ -17,6 +20,7 @@ class Pet {
   final String? scientificName;
   final bool? isFemale;
   final String? distanceToUser;
+  PetType? type;
   Pet({
     required this.id,
     required this.name,
@@ -30,6 +34,7 @@ class Pet {
     this.scientificName,
     this.isFemale,
     this.distanceToUser,
+    this.type,
   });
 
   Pet copyWith({
@@ -45,6 +50,7 @@ class Pet {
     String? scientificName,
     bool? isFemale,
     String? distanceToUser,
+    PetType? type,
   }) {
     return Pet(
       id: id ?? this.id,
@@ -59,6 +65,7 @@ class Pet {
       scientificName: scientificName ?? this.scientificName,
       isFemale: isFemale ?? this.isFemale,
       distanceToUser: distanceToUser ?? this.distanceToUser,
+      type: type ?? this.type,
     );
   }
 
@@ -76,6 +83,7 @@ class Pet {
       'scientificName': scientificName,
       'isFemale': isFemale,
       'distanceToUser': distanceToUser,
+      'type': type.toString(),
     };
   }
 
@@ -99,6 +107,7 @@ class Pet {
       distanceToUser: map['distanceToUser'] != null
           ? map['distanceToUser'] as String
           : null,
+      type: PetType.values.first,
     );
   }
 
@@ -109,7 +118,7 @@ class Pet {
 
   @override
   String toString() {
-    return 'Pet(id: $id, name: $name, breed: $breed, age: $age, imageUrl: $imageUrl, price: $price, isAdopted: $isAdopted, weight: $weight, backgroundColor: $backgroundColor, scientificName: $scientificName, isFemale: $isFemale, distanceToUser: $distanceToUser)';
+    return 'Pet(id: $id, name: $name, breed: $breed, age: $age, imageUrl: $imageUrl, price: $price, isAdopted: $isAdopted, weight: $weight, backgroundColor: $backgroundColor, scientificName: $scientificName, isFemale: $isFemale, distanceToUser: $distanceToUser, type: $type)';
   }
 
   @override
@@ -127,7 +136,8 @@ class Pet {
         other.backgroundColor == backgroundColor &&
         other.scientificName == scientificName &&
         other.isFemale == isFemale &&
-        other.distanceToUser == distanceToUser;
+        other.distanceToUser == distanceToUser &&
+        other.type == type;
   }
 
   @override
@@ -143,7 +153,8 @@ class Pet {
         backgroundColor.hashCode ^
         scientificName.hashCode ^
         isFemale.hashCode ^
-        distanceToUser.hashCode;
+        distanceToUser.hashCode ^
+        type.hashCode;
   }
 }
 
@@ -827,6 +838,7 @@ List<Pet> getPetList() {
   //Generate Id
   for (int i = 0; i < petList.length; i++) {
     petList[i].id = i.toString();
+    petList[i].type = PetType.values[i % PetType.values.length];
   }
 
   return petList;

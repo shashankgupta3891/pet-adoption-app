@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:pet_adoption_app/domain/entities/pet_type.dart';
 import 'package:pet_adoption_app/presentation/widget/home/pet_type_item.dart';
 
 void main() {
@@ -12,8 +13,7 @@ void main() {
           body: PetTypeItem(
             isSelected: true,
             onClick: () {},
-            icon: Icons.pets,
-            typeName: 'Dog',
+            type: PetType.cat,
           ),
         ),
       ),
@@ -42,8 +42,7 @@ void main() {
           body: PetTypeItem(
             isSelected: false,
             onClick: () {},
-            icon: Icons.pets,
-            typeName: 'Dog',
+            type: PetType.cat,
           ),
         ),
       ),

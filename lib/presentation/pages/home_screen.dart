@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:open_peeps/open_peeps.dart';
+import 'package:pet_adoption_app/domain/entities/pet_type.dart';
 import 'package:pet_adoption_app/presentation/pages/history_page.dart';
 import 'package:pet_adoption_app/presentation/widget/home/app_bar.dart';
 import 'package:pet_adoption_app/presentation/widget/home/pet_list_view.dart';
@@ -21,25 +22,10 @@ class _HomeScreenState extends State<HomeScreen> {
   TextEditingController searchController = TextEditingController();
   int? selectedPetIconIndex;
 
-  List<String> animalTypes = [
-    'Cats',
-    'Dogs',
-    'Parrots',
-    'Fish',
-    'Fish',
-  ];
-
-  List<IconData> animalIcons = [
-    FontAwesomeIcons.cat,
-    FontAwesomeIcons.dog,
-    FontAwesomeIcons.crow,
-    FontAwesomeIcons.fish,
-    FontAwesomeIcons.fish,
-  ];
-
   bool get isSearchingEnabled => searchText.isNotEmpty;
-  String? get type =>
-      selectedPetIconIndex == null ? null : animalTypes[selectedPetIconIndex!];
+  PetType? get type => selectedPetIconIndex == null
+      ? null
+      : PetType.values[selectedPetIconIndex!];
 
   @override
   Widget build(BuildContext context) {
@@ -148,11 +134,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                   top: 8.0,
                                 ),
                                 scrollDirection: Axis.horizontal,
-                                itemCount: animalTypes.length,
+                                itemCount: PetType.values.length,
                                 itemBuilder: (context, index) {
                                   final isSelected =
                                       index == selectedPetIconIndex;
                                   return PetTypeItem(
+                                    type: PetType.values[index],
                                     isSelected: isSelected,
                                     onClick: () {
                                       setState(() {
@@ -160,8 +147,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                             isSelected ? null : index;
                                       });
                                     },
-                                    icon: animalIcons[index],
-                                    typeName: animalTypes[index],
                                   );
                                 },
                               ),

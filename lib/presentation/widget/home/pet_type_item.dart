@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:pet_adoption_app/domain/entities/pet_type.dart';
+import 'package:pet_adoption_app/presentation/pages/home_screen.dart';
 
 class PetTypeItem extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onClick;
-  final IconData icon;
-  final String typeName;
+  final PetType type;
+
   const PetTypeItem({
     super.key,
     required this.isSelected,
     required this.onClick,
-    required this.icon,
-    required this.typeName,
+    required this.type,
   });
 
   @override
@@ -40,7 +41,7 @@ class PetTypeItem extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Icon(
-                  icon,
+                  type.iconData,
                   size: 25.0,
                   color: isSelected
                       ? Colors.white
@@ -52,7 +53,7 @@ class PetTypeItem extends StatelessWidget {
               height: 12.0,
             ),
             Text(
-              typeName,
+              type.displayName,
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 16.0,

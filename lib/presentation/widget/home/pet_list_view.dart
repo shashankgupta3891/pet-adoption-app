@@ -1,10 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
+import 'package:pet_adoption_app/core/const/media_const.dart';
+import 'package:pet_adoption_app/domain/entities/pet.dart';
+import 'package:pet_adoption_app/domain/entities/pet_type.dart';
 import 'package:pet_adoption_app/presentation/bloc/home/pet_list_bloc.dart';
 import 'package:pet_adoption_app/presentation/common/pet_list_item.dart';
+import 'package:pet_adoption_app/presentation/pages/home_screen.dart';
+import 'package:pet_adoption_app/utils/paginated_list_view.dart';
 
 class PetListView extends StatefulWidget {
-  final String? type;
+  final PetType? type;
   const PetListView({super.key, required this.type});
 
   @override
@@ -12,24 +19,70 @@ class PetListView extends StatefulWidget {
 }
 
 class _PetListViewState extends State<PetListView> {
+  late PetListBloc bloc;
+
+  bool isLoadingMore = false;
+  @override
+  void initState() {
+    super.initState();
+    bloc = PetListBloc(widget.type)..onInitialLoad();
+  }
+
+  @override
+  void didUpdateWidget(covariant PetListView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.type != oldWidget.type) {
+      bloc = PetListBloc(widget.type)..onInitialLoad();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // final PetListBloc bloc = PetListBloc(widget.type);
     return BlocBuilder<PetListBloc, PetState>(
-      bloc: PetListBloc()..onInitialLoad(widget.type),
+      bloc: bloc,
       builder: (context, state) {
-        if (state is LoadingPetState) {
+        if (state is InitialDataLoadingPetState) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state is LoadedPetState) {
-          return ListView.builder(
-            itemCount: state.pets.length,
-            itemBuilder: (context, index) {
-              final pet = state.pets[index];
-              return PetListItem(animal: pet);
-            },
+        } else if (state is InitialLoadedPetState) {
+          if (state.pets.isEmpty) {
+            return Center(
+              child: Lottie.asset(AnimationConst.noDataAnimation),
+            );
+          }
+
+          return Column(
+            children: [
+              Expanded(
+                child: PaginatedListView<Pet>(
+                  onFetch: bloc.getMorePage,
+                  initialData: state.pets,
+                  itemBuilder: (pet) {
+                    return PetListItem(animal: pet);
+                  },
+                  onLoadStart: () {
+                    setState(() {
+                      isLoadingMore = true;
+                    });
+                  },
+                  onLoadEnd: () {
+                    setState(() {
+                      isLoadingMore = false;
+                    });
+                  },
+                ),
+              ),
+              if (isLoadingMore)
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: CircularProgressIndicator(),
+                ),
+            ],
           );
-        } else if (state is ErrorPetState) {
+        } else if (state is InitialErrorPetState) {
           return Center(
             child: Text('Error: ${state.error}'),
           );

@@ -16,24 +16,17 @@ class PetAdoptionApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<PetListBloc>(
-          create: (ctx) => PetListBloc(),
-        )
-      ],
-      child: MaterialApp(
-        title: 'Pet Adoption App',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          // textTheme: GoogleFonts.poppinsTextTheme.call(),
-        ),
-        initialRoute: '/',
-        routes: {
-          '/': (ctx) => const HomeScreen(),
-          '/history': (ctx) => const HistoryPage(),
-        },
+    return MaterialApp(
+      title: 'Pet Adoption App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        // textTheme: GoogleFonts.poppinsTextTheme.call(),
       ),
+      initialRoute: '/',
+      routes: {
+        '/': (ctx) => const HomeScreen(),
+        '/history': (ctx) => const HistoryPage(),
+      },
     );
   }
 }
