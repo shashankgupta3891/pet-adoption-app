@@ -41,7 +41,7 @@ class SearchPetBloc extends Bloc<SearchPetEvent, SearchPetState> {
   Future<void> _mapGetPetsEventToState(
       GetSearchPetEvent event, Emitter<SearchPetState> emit) async {
     try {
-      final pets = await getPetsUseCase.execute(null);
+      final pets = await getPetsUseCase.execute(null, null);
       final searchedList = pets
           .where(
             (element) =>

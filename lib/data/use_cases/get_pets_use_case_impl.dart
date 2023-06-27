@@ -8,7 +8,7 @@ class GetPetsUseCaseImpl implements GetPetsUseCase {
   GetPetsUseCaseImpl(this.repository);
 
   @override
-  Future<List<Pet>> execute(String? type) {
+  Future<List<Pet>> execute(String? type, int? page) {
     return repository.getPets();
   }
 }

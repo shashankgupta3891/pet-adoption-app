@@ -4,11 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pet_adoption_app/core/const/color_const.dart';
 import 'package:pet_adoption_app/core/const/const.dart';
+import 'package:pet_adoption_app/core/const/font_const.dart';
 import 'package:pet_adoption_app/di/locator.dart';
 import 'package:pet_adoption_app/domain/entities/pet.dart';
 import 'package:pet_adoption_app/presentation/bloc/pet_detail_bloc.dart';
-import 'package:pet_adoption_app/presentation/widgets/pet_detail/pet_info_section.dart';
+import 'package:pet_adoption_app/presentation/widget/pet_detail/pet_info_section.dart';
 import 'package:pet_adoption_app/presentation/common/image_zoom_page.dart';
 
 class PetDetailScreen extends StatefulWidget {
@@ -195,12 +197,12 @@ class DetailScreenBottom extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 offset: const Offset(0, 3),
-                color: isDisabled ? Colors.grey : blue,
+                color: isDisabled ? Colors.grey : ColorConst.blue,
                 spreadRadius: 0,
                 blurRadius: 10,
               )
             ],
-            color: isDisabled ? Colors.grey.shade700 : blue,
+            color: isDisabled ? Colors.grey.shade700 : ColorConst.blue,
           ),
           child: InkWell(
             onTap: isDisabled ? null : petDetailsBloc.onAdopt,
@@ -214,7 +216,8 @@ class DetailScreenBottom extends StatelessWidget {
                   else
                     Text(
                       petDetailsBloc.isAdopted() ? "Adoptted" : 'Adopt Me',
-                      style: poppins.copyWith(fontSize: 14, color: white),
+                      style: FontConst.poppins
+                          .copyWith(fontSize: 14, color: ColorConst.white),
                     ),
                 ],
               ),
@@ -273,14 +276,17 @@ class DetailItem extends StatelessWidget {
               children: [
                 Text(
                   valueText,
-                  style: poppins.copyWith(
-                      fontSize: 16, color: black, fontWeight: FontWeight.bold),
+                  style: FontConst.poppins.copyWith(
+                    fontSize: 16,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Text(
                   keyText,
-                  style: poppins.copyWith(
+                  style: FontConst.poppins.copyWith(
                     fontSize: 14,
-                    color: black.withOpacity(0.6),
+                    color: Colors.black.withOpacity(0.6),
                   ),
                 ),
               ],
@@ -304,9 +310,9 @@ class PetProfileInfo extends StatelessWidget {
       children: [
         Text(
           animal.name.toString(),
-          style: poppins.copyWith(
+          style: FontConst.poppins.copyWith(
             fontSize: 24,
-            color: black,
+            color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -314,13 +320,15 @@ class PetProfileInfo extends StatelessWidget {
           children: [
             const Icon(
               Icons.location_on_outlined,
-              color: blue,
+              color: Colors.blue,
               size: 16,
             ),
             Text(
               '${animal.distanceToUser}',
-              style:
-                  poppins.copyWith(color: black.withOpacity(0.6), fontSize: 14),
+              style: FontConst.poppins.copyWith(
+                color: Colors.black.withOpacity(0.6),
+                fontSize: 14,
+              ),
             ),
           ],
         )

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pet_adoption_app/presentation/widgets/home/pet_type_item.dart';
+import 'package:pet_adoption_app/presentation/widget/home/pet_type_item.dart';
 
 void main() {
   testWidgets('PetTypeItem displays correctly when selected',

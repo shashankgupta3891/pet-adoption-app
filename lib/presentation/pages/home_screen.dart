@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:open_peeps/open_peeps.dart';
 import 'package:pet_adoption_app/presentation/pages/history_page.dart';
-import 'package:pet_adoption_app/presentation/widgets/home/app_bar.dart';
-import 'package:pet_adoption_app/presentation/widgets/home/pet_list_view.dart';
-import 'package:pet_adoption_app/presentation/widgets/home/pet_search_view.dart';
-import 'package:pet_adoption_app/presentation/widgets/home/pet_type_item.dart';
+import 'package:pet_adoption_app/presentation/widget/home/app_bar.dart';
+import 'package:pet_adoption_app/presentation/widget/home/pet_list_view.dart';
+import 'package:pet_adoption_app/presentation/widget/home/pet_search_view.dart';
+import 'package:pet_adoption_app/presentation/widget/home/pet_type_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -46,14 +46,16 @@ class _HomeScreenState extends State<HomeScreen> {
     return GestureDetector(
       onTap: () {
         focusNode.unfocus();
+        searchController.clear();
       },
       child: WillPopScope(
         onWillPop: () async {
           if (isSearchingEnabled) {
-            searchController.text = "";
             setState(() {
               searchText = "";
             });
+
+            searchController.clear();
             focusNode.unfocus();
             return false;
           }

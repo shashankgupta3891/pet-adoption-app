@@ -41,7 +41,7 @@ class PetListBloc extends Bloc<PetEvent, PetState> {
   Future<void> _mapGetPetsEventToState(
       GetPetsEvent event, Emitter<PetState> emit) async {
     try {
-      final pets = await getPetsUseCase.execute(event.type);
+      final pets = await getPetsUseCase.execute(event.type, null);
       emit(LoadedPetState(pets));
     } catch (e) {
       emit(ErrorPetState('Failed to fetch pets: $e'));

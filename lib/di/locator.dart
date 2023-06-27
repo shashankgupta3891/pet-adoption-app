@@ -31,6 +31,7 @@ void configureDependencies(SharedPreferences sharedPreferences) {
   getIt.registerSingleton<ApiClient>(ApiClient());
   setupRepository();
 
+  // Due to the unavailability of the API, I am utilizing a mock usecase and injecting it into the application using GetIt
   const isMockUsecase = true;
 
   if (isMockUsecase) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pet_adoption_app/core/const/color_const.dart';
 import 'package:pet_adoption_app/core/const/const.dart';
 import 'package:pet_adoption_app/domain/entities/pet.dart';
 import 'package:pet_adoption_app/presentation/pages/pet_detail_screen.dart';
@@ -35,17 +36,17 @@ class PetInfoSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 DetailItem(
-                  color: green,
+                  color: ColorConst.green,
                   valueText: (pet.isFemale ?? false) ? "Female" : "Male",
                   keyText: 'Sex',
                 ),
                 DetailItem(
-                  color: orange,
+                  color: ColorConst.orange,
                   valueText: '${pet.age} Years',
                   keyText: 'Age',
                 ),
                 DetailItem(
-                  color: blue,
+                  color: ColorConst.blue,
                   valueText: "${pet.weight} Kg",
                   keyText: 'Weight',
                 )
