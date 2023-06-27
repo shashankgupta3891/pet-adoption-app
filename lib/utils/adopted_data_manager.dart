@@ -7,7 +7,7 @@ class AdoptedDataManager {
 
   AdoptedDataManager(String? data) {
     if (data?.isNotEmpty ?? false) {
-      _data = data!.split(",").toSet();
+      _data = data?.split(",").toSet() ?? {};
     }
   }
 

@@ -1,11 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:pet_adoption_app/utils/adopted_data_manager.dart';
-import 'package:pet_adoption_app/di/locator.dart';
 import 'package:pet_adoption_app/domain/entities/pet.dart';
-import 'package:pet_adoption_app/domain/repositories/local_storage_repository.dart';
 import 'package:pet_adoption_app/domain/use_cases/check_pet_adoption_use_case.dart';
 import 'package:pet_adoption_app/domain/use_cases/get_adopted_pet_list_use_case.dart';
-import 'package:pet_adoption_app/domain/use_cases/get_pets_use_case.dart';
 
 class MockGetAdopterPetListUseCase implements GetAdopterPetListUseCase {
   final CheckPetAdoptionUseCase checkPetAdoptionUseCase;

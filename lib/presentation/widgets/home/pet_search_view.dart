@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pet_adoption_app/core/const/media_const.dart';
 import 'package:pet_adoption_app/presentation/bloc/home/search_pet_bloc.dart';
-import 'package:pet_adoption_app/presentation/widgets/pet_list_item.dart';
+import 'package:pet_adoption_app/presentation/common/pet_list_item.dart';
 
 class PetSearchView extends StatelessWidget {
   final String query;

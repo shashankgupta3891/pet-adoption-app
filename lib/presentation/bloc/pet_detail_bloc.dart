@@ -5,7 +5,6 @@ import 'package:pet_adoption_app/di/locator.dart';
 import 'package:pet_adoption_app/domain/entities/pet.dart';
 import 'package:pet_adoption_app/domain/use_cases/adopt_pet_use_case.dart';
 import 'package:pet_adoption_app/domain/use_cases/check_pet_adoption_use_case.dart';
-import 'package:pet_adoption_app/domain/use_cases/get_pet_detail_use_case.dart';
 
 sealed class PetDetailEvent {}
 
@@ -53,8 +52,8 @@ class ErrorPetDetailState extends PetDetailState {
 }
 
 class PetDetailsBloc extends Bloc<PetDetailEvent, PetDetailState> {
-  late final CheckPetAdoptionUseCase checkPetAdoptionUseCase = getIt.get();
-  late final AdoptPetUseCase adoptPetUseCase = getIt.get();
+  final CheckPetAdoptionUseCase checkPetAdoptionUseCase;
+  final AdoptPetUseCase adoptPetUseCase;
 
   void onAdopt() {
     add(AdoptPetEvent(state.pet));
@@ -64,11 +63,10 @@ class PetDetailsBloc extends Bloc<PetDetailEvent, PetDetailState> {
     add(CheckForAdoptedPetEvent(state.pet));
   }
 
-  PetDetailsBloc(Pet pet) : super(InitialPetDetailState(pet)) {
+  PetDetailsBloc(Pet pet, this.checkPetAdoptionUseCase, this.adoptPetUseCase)
+      : super(InitialPetDetailState(pet)) {
     on<CheckForAdoptedPetEvent>(_mapCheckForAdoptionEventToState);
     on<AdoptPetEvent>(_mapAdoptPetEventToState);
-
-    onCheckOfAdoption();
   }
 
   Future<void> _mapCheckForAdoptionEventToState(

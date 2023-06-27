@@ -1,16 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:open_peeps/open_peeps.dart';
-import 'package:pet_adoption_app/presentation/bloc/home/pet_list_bloc.dart';
-import 'package:pet_adoption_app/presentation/bloc/home/search_pet_bloc.dart';
 import 'package:pet_adoption_app/presentation/pages/history_page.dart';
 import 'package:pet_adoption_app/presentation/widgets/home/app_bar.dart';
 import 'package:pet_adoption_app/presentation/widgets/home/pet_list_view.dart';
 import 'package:pet_adoption_app/presentation/widgets/home/pet_search_view.dart';
 import 'package:pet_adoption_app/presentation/widgets/home/pet_type_item.dart';
-import 'package:pet_adoption_app/presentation/widgets/pet_list_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   FocusNode focusNode = FocusNode();
   String searchText = "";
   TextEditingController searchController = TextEditingController();
-  int? selectedAnimalIconIndex;
+  int? selectedPetIconIndex;
 
   List<String> animalTypes = [
     'Cats',
@@ -42,9 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   bool get isSearchingEnabled => searchText.isNotEmpty;
-  String? get type => selectedAnimalIconIndex == null
-      ? null
-      : animalTypes[selectedAnimalIconIndex!];
+  String? get type =>
+      selectedPetIconIndex == null ? null : animalTypes[selectedPetIconIndex!];
 
   @override
   Widget build(BuildContext context) {
@@ -154,12 +149,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 itemCount: animalTypes.length,
                                 itemBuilder: (context, index) {
                                   final isSelected =
-                                      index == selectedAnimalIconIndex;
+                                      index == selectedPetIconIndex;
                                   return PetTypeItem(
                                     isSelected: isSelected,
                                     onClick: () {
                                       setState(() {
-                                        selectedAnimalIconIndex =
+                                        selectedPetIconIndex =
                                             isSelected ? null : index;
                                       });
                                     },

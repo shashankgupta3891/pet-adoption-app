@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_adoption_app/di/locator.dart';
 import 'package:pet_adoption_app/presentation/bloc/home/pet_list_bloc.dart';
-import 'package:pet_adoption_app/presentation/pages/detail_page.dart';
 import 'package:pet_adoption_app/presentation/pages/home_screen.dart';
 import 'presentation/pages/history_page.dart';
 
@@ -32,7 +31,6 @@ class PetAdoptionApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (ctx) => const HomeScreen(),
-          '/details': (ctx) => const DetailsPage(),
           '/history': (ctx) => const HistoryPage(),
         },
       ),

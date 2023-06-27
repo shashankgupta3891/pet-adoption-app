@@ -55,11 +55,6 @@ class HomeAppBar extends StatelessWidget {
             ),
           ],
         ),
-        // PeepAvatar.fromPeep(
-        //   // size: 20,
-        //   peep: PeepGenerator().generate(),
-        // ),
-
         CircleAvatar(
           radius: 20.0,
           // backgroundImage: AssetImage('assets/images/sola.png'),

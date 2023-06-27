@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pet_adoption_app/core/const/const.dart';
 import 'package:pet_adoption_app/domain/entities/pet.dart';
-import 'package:pet_adoption_app/presentation/pages/animal_detail_screen.dart';
+import 'package:pet_adoption_app/presentation/pages/pet_detail_screen.dart';
 
-class AnimalInfoSection extends StatelessWidget {
-  const AnimalInfoSection({
+class PetInfoSection extends StatelessWidget {
+  const PetInfoSection({
     super.key,
     required this.pet,
   });
@@ -29,7 +29,7 @@ class AnimalInfoSection extends StatelessWidget {
         ),
         child: Column(
           children: [
-            AnimalProfileInfo(animal: pet),
+            PetProfileInfo(animal: pet),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,12 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pet_adoption_app/core/const/media_const.dart';
 import 'package:pet_adoption_app/presentation/bloc/history_list_bloc.dart';
-import 'package:pet_adoption_app/presentation/bloc/home/pet_list_bloc.dart';
-import 'package:pet_adoption_app/presentation/widgets/pet_list_item.dart';
+import 'package:pet_adoption_app/presentation/common/pet_list_item.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});

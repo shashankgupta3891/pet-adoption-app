@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_adoption_app/di/locator.dart';
 import 'package:pet_adoption_app/domain/entities/pet.dart';
 import 'package:pet_adoption_app/domain/use_cases/get_adopted_pet_list_use_case.dart';
-import 'package:pet_adoption_app/domain/use_cases/get_pets_use_case.dart';
 
 sealed class HistoryPetEvent {}
 

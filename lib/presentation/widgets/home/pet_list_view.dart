@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_adoption_app/presentation/bloc/home/pet_list_bloc.dart';
-import 'package:pet_adoption_app/presentation/widgets/pet_list_item.dart';
+import 'package:pet_adoption_app/presentation/common/pet_list_item.dart';
 
 class PetListView extends StatefulWidget {
   final String? type;

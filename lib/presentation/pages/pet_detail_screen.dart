@@ -5,21 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pet_adoption_app/core/const/const.dart';
+import 'package:pet_adoption_app/di/locator.dart';
 import 'package:pet_adoption_app/domain/entities/pet.dart';
 import 'package:pet_adoption_app/presentation/bloc/pet_detail_bloc.dart';
-import 'package:pet_adoption_app/presentation/widgets/detail/animal_info_section.dart';
-import 'package:pet_adoption_app/presentation/widgets/image_zoom_page.dart';
+import 'package:pet_adoption_app/presentation/widgets/pet_detail/pet_info_section.dart';
+import 'package:pet_adoption_app/presentation/common/image_zoom_page.dart';
 
-class AnimalDetailScreen extends StatefulWidget {
+class PetDetailScreen extends StatefulWidget {
   final Pet pet;
 
-  const AnimalDetailScreen({super.key, required this.pet});
+  const PetDetailScreen({super.key, required this.pet});
 
   @override
-  State<AnimalDetailScreen> createState() => _AnimalDetailScreenState();
+  State<PetDetailScreen> createState() => _PetDetailScreenState();
 }
 
-class _AnimalDetailScreenState extends State<AnimalDetailScreen> {
+class _PetDetailScreenState extends State<PetDetailScreen> {
   final ConfettiController _confettiController =
       ConfettiController(duration: const Duration(seconds: 3));
 
@@ -32,7 +33,11 @@ class _AnimalDetailScreenState extends State<AnimalDetailScreen> {
 
     pet = widget.pet;
 
-    bloc = PetDetailsBloc(pet);
+    bloc = PetDetailsBloc(
+      pet,
+      getIt.get(),
+      getIt.get(),
+    )..onCheckOfAdoption();
   }
 
   @override
@@ -72,8 +77,8 @@ class _AnimalDetailScreenState extends State<AnimalDetailScreen> {
                 color: Colors.white,
                 child: Column(
                   children: [
-                    AnimalDetailTopImageSection(pet: pet),
-                    AnimalInfoSection(pet: pet),
+                    PetDetailTopImageSection(pet: pet),
+                    PetInfoSection(pet: pet),
                   ],
                 ),
               ),
@@ -120,8 +125,8 @@ class _AnimalDetailScreenState extends State<AnimalDetailScreen> {
   }
 }
 
-class AnimalDetailTopImageSection extends StatelessWidget {
-  const AnimalDetailTopImageSection({
+class PetDetailTopImageSection extends StatelessWidget {
+  const PetDetailTopImageSection({
     super.key,
     required this.pet,
   });
@@ -287,8 +292,8 @@ class DetailItem extends StatelessWidget {
   }
 }
 
-class AnimalProfileInfo extends StatelessWidget {
-  const AnimalProfileInfo({super.key, required this.animal});
+class PetProfileInfo extends StatelessWidget {
+  const PetProfileInfo({super.key, required this.animal});
 
   final Pet animal;
 

@@ -1,7 +1,6 @@
 import 'package:pet_adoption_app/utils/adopted_data_manager.dart';
 import 'package:pet_adoption_app/domain/entities/pet.dart';
 import 'package:pet_adoption_app/domain/repositories/local_storage_repository.dart';
-import 'package:pet_adoption_app/domain/use_cases/adopt_pet_use_case.dart';
 import 'package:pet_adoption_app/domain/use_cases/check_pet_adoption_use_case.dart';
 
 class CheckPetAdoptionUseCaseImpl implements CheckPetAdoptionUseCase {

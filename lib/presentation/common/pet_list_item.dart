@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_adoption_app/domain/entities/pet.dart';
-import 'package:pet_adoption_app/presentation/pages/animal_detail_screen.dart';
+import 'package:pet_adoption_app/presentation/pages/pet_detail_screen.dart';
 
 class PetListItem extends StatelessWidget {
   const PetListItem({
@@ -18,7 +18,7 @@ class PetListItem extends StatelessWidget {
       onTap: () {
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
-            return AnimalDetailScreen(pet: animal);
+            return PetDetailScreen(pet: animal);
           },
         ));
       },
@@ -96,7 +96,7 @@ class PetListItem extends StatelessWidget {
                           Row(
                             children: <Widget>[
                               Icon(
-                                FontAwesomeIcons.mapMarkerAlt,
+                                FontAwesomeIcons.locationDot,
                                 color: Theme.of(context).primaryColor,
                                 size: 16.0,
                               ),
