@@ -43,8 +43,6 @@ class _AnimalDetailScreenState extends State<AnimalDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-
     return BlocListener<PetDetailsBloc, PetDetailState>(
       bloc: bloc,
       listener: (context, state) {
@@ -74,39 +72,7 @@ class _AnimalDetailScreenState extends State<AnimalDetailScreen> {
                 color: Colors.white,
                 child: Column(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ImageZoomPage(
-                              imageProvider: AssetImage(
-                                pet.imageUrl ?? 'assets/images/sola.png',
-                              ),
-                              bgColor: pet.backgroundColor ?? Colors.white,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 20),
-                        width: double.infinity,
-                        color: pet.backgroundColor,
-                        child: SizedBox(
-                          height: screenHeight * 0.35,
-                          child: Hero(
-                            tag: pet.name ?? " - ",
-                            child: Image(
-                              image: AssetImage(
-                                pet.imageUrl ?? 'assets/images/sola.png',
-                              ),
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    AnimalDetailTopImageSection(pet: pet),
                     AnimalInfoSection(pet: pet),
                   ],
                 ),
@@ -151,6 +117,52 @@ class _AnimalDetailScreenState extends State<AnimalDetailScreen> {
     ).show();
 
     _confettiController.play();
+  }
+}
+
+class AnimalDetailTopImageSection extends StatelessWidget {
+  const AnimalDetailTopImageSection({
+    super.key,
+    required this.pet,
+  });
+
+  final Pet pet;
+
+  @override
+  Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ImageZoomPage(
+              imageProvider: AssetImage(
+                pet.imageUrl ?? 'assets/images/sola.png',
+              ),
+              bgColor: pet.backgroundColor ?? Colors.white,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        width: double.infinity,
+        color: pet.backgroundColor,
+        child: SizedBox(
+          height: screenHeight * 0.35,
+          child: Hero(
+            tag: pet.name ?? " - ",
+            child: Image(
+              image: AssetImage(
+                pet.imageUrl ?? 'assets/images/sola.png',
+              ),
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
 

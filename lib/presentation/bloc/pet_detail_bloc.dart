@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_adoption_app/di/locator.dart';
 import 'package:pet_adoption_app/domain/entities/pet.dart';
 import 'package:pet_adoption_app/domain/use_cases/adopt_pet_use_case.dart';
+import 'package:pet_adoption_app/domain/use_cases/check_pet_adoption_use_case.dart';
 import 'package:pet_adoption_app/domain/use_cases/get_pet_detail_use_case.dart';
 
 sealed class PetDetailEvent {}
@@ -12,6 +13,12 @@ class AdoptPetEvent extends PetDetailEvent {
   final Pet pet;
 
   AdoptPetEvent(this.pet);
+}
+
+class CheckForAdoptedPetEvent extends PetDetailEvent {
+  final Pet pet;
+
+  CheckForAdoptedPetEvent(this.pet);
 }
 
 sealed class PetDetailState {
@@ -27,8 +34,16 @@ class LoadingPetDetailState extends PetDetailState {
   LoadingPetDetailState(super.pet);
 }
 
-class SuccessAdoptPetDetailState extends PetDetailState {
+class SuccessPetDetailState extends PetDetailState {
+  SuccessPetDetailState(super.pet);
+}
+
+class SuccessAdoptPetDetailState extends SuccessPetDetailState {
   SuccessAdoptPetDetailState(super.pet);
+}
+
+class SuccessAdoptionCheckPetDetailState extends SuccessPetDetailState {
+  SuccessAdoptionCheckPetDetailState(super.pet);
 }
 
 class ErrorPetDetailState extends PetDetailState {
@@ -38,18 +53,36 @@ class ErrorPetDetailState extends PetDetailState {
 }
 
 class PetDetailsBloc extends Bloc<PetDetailEvent, PetDetailState> {
-  late final GetPetDetailUseCase getPetDetailUseCase = getIt.get();
+  late final CheckPetAdoptionUseCase checkPetAdoptionUseCase = getIt.get();
   late final AdoptPetUseCase adoptPetUseCase = getIt.get();
 
-  // Pet _pet;
-
   void onAdopt() {
-    print("AdoptPetEvent");
     add(AdoptPetEvent(state.pet));
   }
 
+  void onCheckOfAdoption() {
+    add(CheckForAdoptedPetEvent(state.pet));
+  }
+
   PetDetailsBloc(Pet pet) : super(InitialPetDetailState(pet)) {
+    on<CheckForAdoptedPetEvent>(_mapCheckForAdoptionEventToState);
     on<AdoptPetEvent>(_mapAdoptPetEventToState);
+
+    onCheckOfAdoption();
+  }
+
+  Future<void> _mapCheckForAdoptionEventToState(
+      CheckForAdoptedPetEvent event, Emitter<PetDetailState> emit) async {
+    try {
+      emit(LoadingPetDetailState(state.pet));
+      final isAdopted = await checkPetAdoptionUseCase.execute(event.pet);
+
+      final newPet = event.pet..isAdopted = isAdopted;
+
+      emit(SuccessAdoptionCheckPetDetailState(newPet));
+    } catch (e) {
+      emit(ErrorPetDetailState(state.pet, 'Failed to adopt pet: $e'));
+    }
   }
 
   Future<void> _mapAdoptPetEventToState(
@@ -65,11 +98,7 @@ class PetDetailsBloc extends Bloc<PetDetailEvent, PetDetailState> {
   }
 
   bool isAdopted() {
-    final tempState = state;
-    if (tempState is SuccessAdoptPetDetailState) {
-      return state.pet.isAdopted;
-    }
-    return false;
+    return state.pet.isAdopted;
   }
 
   bool isDisabled() {

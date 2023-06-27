@@ -46,6 +46,7 @@ class HistoryPetBloc extends Bloc<HistoryPetEvent, HistoryPetState> {
     try {
       emit(LoadingHistoryPetState());
       final pets = await _getAdopterPetListUseCase.execute();
+
       emit(LoadedHistoryPetState(pets));
     } catch (e) {
       emit(ErrorHistoryPetState('Failed to fetch pets: $e'));

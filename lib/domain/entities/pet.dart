@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 class Pet {
-  final String id;
+  String id;
   final String name;
   final String breed;
   final double age;
@@ -146,8 +146,9 @@ class Pet {
   }
 }
 
+//Dummay data
 List<Pet> getPetList() {
-  return [
+  final petList = [
     Pet(
       name: 'Sola',
       scientificName: 'Abyssinian cat',
@@ -821,4 +822,11 @@ List<Pet> getPetList() {
       weight: 24,
     ),
   ];
+
+  //Generate Id
+  for (int i = 0; i < petList.length; i++) {
+    petList[i].id = i.toString();
+  }
+
+  return petList;
 }
