@@ -72,7 +72,8 @@ class _HistoryPageState extends State<HistoryPage> {
                         ),
                         const CircleAvatar(
                           radius: 20.0,
-                          backgroundImage: AssetImage('assets/images/sola.png'),
+                          backgroundImage:
+                              AssetImage(ImageConst.transparentCat),
                         ),
                       ],
                     ),

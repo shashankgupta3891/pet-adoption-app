@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pet_adoption_app/core/const/color_const.dart';
-import 'package:pet_adoption_app/core/const/const.dart';
 import 'package:pet_adoption_app/core/const/font_const.dart';
+import 'package:pet_adoption_app/core/const/media_const.dart';
 import 'package:pet_adoption_app/di/locator.dart';
 import 'package:pet_adoption_app/domain/entities/pet.dart';
 import 'package:pet_adoption_app/presentation/bloc/pet_detail_bloc.dart';
@@ -145,7 +145,7 @@ class PetDetailTopImageSection extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => ImageZoomPage(
               imageProvider: AssetImage(
-                pet.imageUrl ?? 'assets/images/sola.png',
+                pet.imageUrl,
               ),
               bgColor: pet.backgroundColor ?? Colors.white,
             ),
@@ -162,7 +162,7 @@ class PetDetailTopImageSection extends StatelessWidget {
             tag: pet.name ?? " - ",
             child: Image(
               image: AssetImage(
-                pet.imageUrl ?? 'assets/images/sola.png',
+                pet.imageUrl ?? ImageConst.transparentCat,
               ),
               fit: BoxFit.contain,
             ),

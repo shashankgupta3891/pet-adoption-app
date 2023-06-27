@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet_adoption_app/core/const/color_const.dart';
-import 'package:pet_adoption_app/core/const/const.dart';
+import 'package:pet_adoption_app/core/const/media_const.dart';
 import 'package:pet_adoption_app/domain/entities/pet.dart';
 import 'package:pet_adoption_app/presentation/pages/pet_detail_screen.dart';
 
@@ -59,7 +59,7 @@ class PetInfoSection extends StatelessWidget {
               children: <Widget>[
                 const CircleAvatar(
                   radius: 22.0,
-                  backgroundImage: AssetImage('assets/images/sola.png'),
+                  backgroundImage: AssetImage(ImageConst.transparentCat),
                 ),
                 const SizedBox(
                   width: 10.0,
