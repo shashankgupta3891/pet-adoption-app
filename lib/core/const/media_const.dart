@@ -4,6 +4,7 @@ abstract class ImageConst {
   static const transparentDog = 'assets/images/dogs.png';
   static const transparentParrot = 'assets/images/parrots.png';
   static const transparentFish = 'assets/images/fishs.png';
+  static const profile = 'assets/images/profile.png';
 }
 
 abstract class AnimationConst {

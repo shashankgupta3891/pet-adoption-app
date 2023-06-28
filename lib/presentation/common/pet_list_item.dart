@@ -56,7 +56,7 @@ class PetListItem extends StatelessWidget {
                               Text(
                                 animal.name ?? " - ",
                                 style: TextStyle(
-                                  fontSize: 26.0,
+                                  fontSize: 24.0,
                                   color: Theme.of(context).primaryColor,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -70,18 +70,18 @@ class PetListItem extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(
-                            height: 10.0,
+                            height: 8.0,
                           ),
                           Text(
                             animal.scientificName ?? " - ",
                             style: TextStyle(
-                              fontSize: 16.0,
+                              fontSize: 15.0,
                               color: Theme.of(context).primaryColor,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                           const SizedBox(
-                            height: 10.0,
+                            height: 8.0,
                           ),
                           Text(
                             '${animal.age} years old',
@@ -91,14 +91,14 @@ class PetListItem extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(
-                            height: 10.0,
+                            height: 8.0,
                           ),
                           Row(
                             children: <Widget>[
                               Icon(
                                 FontAwesomeIcons.locationDot,
                                 color: Theme.of(context).primaryColor,
-                                size: 16.0,
+                                size: 15.0,
                               ),
                               const SizedBox(
                                 width: 6.0,
@@ -107,7 +107,7 @@ class PetListItem extends StatelessWidget {
                                 child: Text(
                                   '${animal.distanceToUser}',
                                   style: TextStyle(
-                                    fontSize: 16.0,
+                                    fontSize: 15.0,
                                     color: Theme.of(context).primaryColor,
                                     fontWeight: FontWeight.w400,
                                   ),

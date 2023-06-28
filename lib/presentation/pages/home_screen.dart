@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:open_peeps/open_peeps.dart';
+import 'package:pet_adoption_app/core/const/media_const.dart';
 import 'package:pet_adoption_app/domain/entities/pet_type.dart';
 import 'package:pet_adoption_app/presentation/pages/history_page.dart';
 import 'package:pet_adoption_app/presentation/widget/home/app_bar.dart';
+import 'package:pet_adoption_app/presentation/widget/home/drawer.dart';
 import 'package:pet_adoption_app/presentation/widget/home/pet_list_view.dart';
 import 'package:pet_adoption_app/presentation/widget/home/pet_search_view.dart';
 import 'package:pet_adoption_app/presentation/widget/home/pet_type_item.dart';
@@ -49,32 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return true;
         },
         child: Scaffold(
-          drawer: Drawer(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor.withOpacity(0.3),
-                  ),
-                  child: CircleAvatar(
-                      child: PeepAvatar.fromPeep(
-                    size: 150,
-                    peep: PeepGenerator().generate(),
-                  )),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    itemBuilder: (ctx, i) {
-                      return const ListTile(
-                        title: Text("Drawer Tile"),
-                      );
-                    },
-                  ),
-                )
-              ],
-            ),
-          ),
+          drawer: const HomeDrawer(),
           floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
           floatingActionButton: FloatingActionButton.extended(
             onPressed: () {

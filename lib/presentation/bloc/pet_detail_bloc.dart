@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:pet_adoption_app/di/locator.dart';
 import 'package:pet_adoption_app/domain/entities/pet.dart';
 import 'package:pet_adoption_app/domain/use_cases/adopt_pet_use_case.dart';
 import 'package:pet_adoption_app/domain/use_cases/check_pet_adoption_use_case.dart';

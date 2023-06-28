@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:open_peeps/open_peeps.dart';
 import 'package:pet_adoption_app/presentation/widget/home/app_bar.dart';
 
 void main() {

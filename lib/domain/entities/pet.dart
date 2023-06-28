@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'package:pet_adoption_app/core/const/media_const.dart';
 import 'package:pet_adoption_app/domain/entities/pet_type.dart';
-import 'package:pet_adoption_app/presentation/pages/home_screen.dart';
 
 class Pet {
   String id;
@@ -163,7 +162,7 @@ List<Pet> getPetList() {
   final petList = [
     Pet(
       name: 'Sola',
-      scientificName: 'Abyssinian cat',
+      scientificName: 'Abyssinian',
       age: 2.0,
       distanceToUser: '3.6 km',
       isFemale: true,
@@ -177,7 +176,7 @@ List<Pet> getPetList() {
     ),
     Pet(
       name: 'Orion',
-      scientificName: 'Abyssinian cat',
+      scientificName: 'Abyssinian',
       age: 1.5,
       distanceToUser: '7.8 km',
       isFemale: false,
@@ -387,7 +386,7 @@ List<Pet> getPetList() {
     ),
     Pet(
       name: 'Rocky',
-      scientificName: 'Norwegian Forest Cat',
+      scientificName: 'Norwegian Forest',
       age: 4.2,
       distanceToUser: '2.5 km',
       isFemale: false,
@@ -821,7 +820,7 @@ List<Pet> getPetList() {
     ),
     Pet(
       name: 'Toby',
-      scientificName: 'Norwegian Forest Cat',
+      scientificName: 'Norwegian Forest',
       age: 1.7,
       distanceToUser: '7.5 km',
       isFemale: false,
@@ -837,9 +836,10 @@ List<Pet> getPetList() {
 
   //Generate Id
   for (int i = 0; i < petList.length; i++) {
+    final type = PetType.values[i % PetType.values.length];
     petList[i].id = i.toString();
-    petList[i].type = PetType.values[i % PetType.values.length];
-    petList[i].imageUrl = ImageConst.transparentFish;
+    petList[i].type = type;
+    petList[i].imageUrl = type.imageUrl;
   }
 
   return petList;

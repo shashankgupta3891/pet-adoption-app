@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pet_adoption_app/domain/entities/pet_type.dart';
-import 'package:pet_adoption_app/presentation/pages/home_screen.dart';
 
 class PetTypeItem extends StatelessWidget {
   final bool isSelected;

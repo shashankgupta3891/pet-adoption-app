@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -7,7 +6,6 @@ import 'package:pet_adoption_app/domain/entities/pet.dart';
 import 'package:pet_adoption_app/domain/entities/pet_type.dart';
 import 'package:pet_adoption_app/presentation/bloc/home/pet_list_bloc.dart';
 import 'package:pet_adoption_app/presentation/common/pet_list_item.dart';
-import 'package:pet_adoption_app/presentation/pages/home_screen.dart';
 import 'package:pet_adoption_app/utils/paginated_list_view.dart';
 
 class PetListView extends StatefulWidget {

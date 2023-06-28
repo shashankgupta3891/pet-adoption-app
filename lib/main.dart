@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pet_adoption_app/di/locator.dart';
-import 'package:pet_adoption_app/presentation/bloc/home/pet_list_bloc.dart';
 import 'package:pet_adoption_app/presentation/pages/home_screen.dart';
 import 'presentation/pages/history_page.dart';
 
