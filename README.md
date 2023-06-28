@@ -4,6 +4,11 @@ A Flutter app that allows users to browse and adopt pets. It includes an overvie
 
 ## Screenshots
 
+<img src="https://user-images.githubusercontent.com/43954262/90977887-df0fc900-e566-11ea-8267-be21876f1423.jpeg" width="200">|
+<img src="https://user-images.githubusercontent.com/43954262/90977889-e2a35000-e566-11ea-9144-239f7282b1c1.jpeg" width="200">|
+<img src="https://user-images.githubusercontent.com/43954262/90977893-e636d700-e566-11ea-9899-7e9c3b66ffc0.jpeg" width="200">|
+<img src="https://user-images.githubusercontent.com/43954262/90977896-ea62f480-e566-11ea-8773-568d897d7648.jpeg" width="200">|
+
 ![Home Screen - 1](screenshots/home.jpg)
 ![Home Screen - 2](screenshots/home-2.jpg)
 ![Details Screen](screenshots/pet-detail.jpg)
