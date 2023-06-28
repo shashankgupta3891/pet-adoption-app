@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pet_adoption_app/core/const/color_const.dart';
 import 'package:pet_adoption_app/core/const/media_const.dart';
 import 'package:pet_adoption_app/domain/entities/pet.dart';
-import 'package:pet_adoption_app/presentation/pages/pet_detail_screen.dart';
+import 'package:pet_adoption_app/presentation/pages/pet_detail_page.dart';
 
 class PetInfoSection extends StatelessWidget {
   const PetInfoSection({

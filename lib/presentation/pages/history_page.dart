@@ -6,6 +6,8 @@ import 'package:pet_adoption_app/core/const/media_const.dart';
 import 'package:pet_adoption_app/presentation/bloc/history_list_bloc.dart';
 import 'package:pet_adoption_app/presentation/common/pet_list_item.dart';
 
+import '../common/loading_animation.dart';
+
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
 
@@ -95,14 +97,13 @@ class _HistoryPageState extends State<HistoryPage> {
                           bloc: HistoryPetBloc()..onInitialLoad(),
                           builder: (context, state) {
                             if (state is LoadingHistoryPetState) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
+                              return const LoadingAnimation();
                             } else if (state is LoadedHistoryPetState) {
                               if (state.pets.isEmpty) {
                                 return Center(
                                   child: Lottie.asset(
-                                      AnimationConst.noDataAnimation),
+                                    AnimationConst.noDataAnimation,
+                                  ),
                                 );
                               }
 

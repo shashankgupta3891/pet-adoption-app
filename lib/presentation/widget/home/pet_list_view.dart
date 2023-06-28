@@ -8,6 +8,8 @@ import 'package:pet_adoption_app/presentation/bloc/home/pet_list_bloc.dart';
 import 'package:pet_adoption_app/presentation/common/pet_list_item.dart';
 import 'package:pet_adoption_app/utils/paginated_list_view.dart';
 
+import 'package:pet_adoption_app/presentation/common/loading_animation.dart';
+
 class PetListView extends StatefulWidget {
   final PetType? type;
   const PetListView({super.key, required this.type});
@@ -42,9 +44,8 @@ class _PetListViewState extends State<PetListView> {
       bloc: bloc,
       builder: (context, state) {
         if (state is InitialDataLoadingPetState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const LoadingAnimation();
+          ;
         } else if (state is InitialLoadedPetState) {
           if (state.pets.isEmpty) {
             return Center(
@@ -76,7 +77,7 @@ class _PetListViewState extends State<PetListView> {
               if (isLoadingMore)
                 const Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: CircularProgressIndicator(),
+                  child: LoadingAnimation(widget: 60),
                 ),
             ],
           );

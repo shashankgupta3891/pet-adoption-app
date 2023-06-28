@@ -5,6 +5,8 @@ import 'package:pet_adoption_app/core/const/media_const.dart';
 import 'package:pet_adoption_app/presentation/bloc/home/search_pet_bloc.dart';
 import 'package:pet_adoption_app/presentation/common/pet_list_item.dart';
 
+import '../../common/loading_animation.dart';
+
 class PetSearchView extends StatelessWidget {
   final String query;
 
@@ -19,9 +21,8 @@ class PetSearchView extends StatelessWidget {
       bloc: SearchPetBloc()..onSearch(query),
       builder: (context, state) {
         if (state is LoadingSearchPetState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const LoadingAnimation();
+          ;
         } else if (state is LoadedSearchPetState) {
           if (state.pets.isEmpty) {
             return Center(

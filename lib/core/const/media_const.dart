@@ -9,4 +9,5 @@ abstract class ImageConst {
 
 abstract class AnimationConst {
   static const noDataAnimation = 'assets/animation/no-data.zip';
+  static const loadingAnimation = 'assets/animation/loading.zip';
 }

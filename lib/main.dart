@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet_adoption_app/di/locator.dart';
-import 'package:pet_adoption_app/presentation/pages/home_screen.dart';
+import 'package:pet_adoption_app/presentation/pages/home_page.dart';
 import 'presentation/pages/history_page.dart';
 
 Future<void> main() async {

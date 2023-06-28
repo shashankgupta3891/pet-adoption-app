@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_adoption_app/domain/entities/pet.dart';
-import 'package:pet_adoption_app/presentation/pages/pet_detail_screen.dart';
+import 'package:pet_adoption_app/presentation/pages/pet_detail_page.dart';
 
 class PetListItem extends StatelessWidget {
   const PetListItem({
