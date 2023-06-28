@@ -6,10 +6,10 @@ A Flutter app that allows users to browse and adopt pets. It includes an overvie
 
 
 <div style="display:flex;">
-  <img alt="Home Screen - 1" src="screenshots/home.jpg"  style="max-width: 200px; min-width: 80px;">
-  <img alt="Home Screen - 2" src="screenshots/home-2.jpg" style="max-width: 200px; min-width: 80px;">
-  <img alt="Details Screen" src="screenshots/pet-detail.jpg" style="max-width: 200px; min-width: 80px;">
-  <img alt="Adopted Screen" src="screenshots/adopted.jpg" style="max-width: 200px; min-width: 80px;">
+  <img alt="Home Screen - 1" src="screenshots/home.jpg" width="200" style="max-width: 200px; min-width: 80px;">
+  <img alt="Home Screen - 2" src="screenshots/home-2.jpg" width="200" style="max-width: 200px; min-width: 80px;">
+  <img alt="Details Screen" src="screenshots/pet-detail.jpg" width="200" style="max-width: 200px; min-width: 80px;">
+  <img alt="Adopted Screen" src="screenshots/adopted.jpg" width="200" style="max-width: 200px; min-width: 80px;">
 </div>
 
 <img src="https://user-images.githubusercontent.com/43954262/90977887-df0fc900-e566-11ea-8267-be21876f1423.jpeg" width="200">|
