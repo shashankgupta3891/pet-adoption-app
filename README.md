@@ -4,9 +4,10 @@ A Flutter app that allows users to browse and adopt pets. It includes an overvie
 
 ## Screenshots
 
-![Overview Screen](screenshots/overview_screen.png)
-![Details Screen](screenshots/details_screen.png)
-
+![Home Screen - 1](screenshots/home.jpg)
+![Home Screen - 2](screenshots/home-2.jpg)
+![Details Screen](screenshots/pet-detail.jpg)
+![Adopted Screen](screenshots/adopted.jpg)
 ## Features
 
 - View a list of available pets
