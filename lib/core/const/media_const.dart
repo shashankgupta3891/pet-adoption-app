@@ -1,6 +1,9 @@
 abstract class ImageConst {
   static const pawPrint = 'assets/images/Paw_Print.svg';
   static const transparentCat = 'assets/images/sola.png';
+  static const transparentDog = 'assets/images/dogs.png';
+  static const transparentParrot = 'assets/images/parrots.png';
+  static const transparentFish = 'assets/images/fishs.png';
 }
 
 abstract class AnimationConst {

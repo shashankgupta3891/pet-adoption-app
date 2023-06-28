@@ -12,7 +12,7 @@ class Pet {
   final String name;
   final String breed;
   final double age;
-  final String imageUrl;
+  String imageUrl;
   final double price;
   bool isAdopted;
   final int? weight;
@@ -839,6 +839,7 @@ List<Pet> getPetList() {
   for (int i = 0; i < petList.length; i++) {
     petList[i].id = i.toString();
     petList[i].type = PetType.values[i % PetType.values.length];
+    petList[i].imageUrl = ImageConst.transparentFish;
   }
 
   return petList;
